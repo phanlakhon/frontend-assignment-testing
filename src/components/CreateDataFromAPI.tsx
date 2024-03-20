@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export function CreateDataFromAPI() {
   const isMounted = useRef(false);
+
   const [dataGroupByDepartment, setData] = useState<any>([]);
 
   const getData = async () => {
@@ -83,6 +84,7 @@ export function CreateDataFromAPI() {
       });
 
       setData([...newData]);
+      console.log("Default data ->", users);
       console.log("Data Group By Department ->", newData);
     }
   };
@@ -95,7 +97,7 @@ export function CreateDataFromAPI() {
   }, []);
 
   return (
-    <div className="my-16">
+    <div className="mt-16">
       <p className="text-lg">2. Create data from API (OPTIONAL)</p>
 
       <p className="text-sm">
@@ -108,77 +110,11 @@ export function CreateDataFromAPI() {
           https://github.com/phanlakhon/frontend-assignment-testing
         </a>
       </p>
-
       <p className="text-red-500 text-sm mb-4">
-        * Log Array ไว้ใน Console แล้วนะคะ inspect เพื่อดูได้เลยค่ะ
+        * มี Log data ไว้ใน Console ด้วยนะคะ inspect เพื่อดูได้เลยค่ะ
       </p>
 
-      <div className="text-sm">
-        <ul>
-          {dataGroupByDepartment &&
-            dataGroupByDepartment.map((item: any, index: number) => {
-              let department = "";
-              let value: any = {};
-              Object.keys(item).map((key) => {
-                department = key;
-                value = item[key];
-              });
-
-              const hair: any = [];
-              Object.keys(value.hair).map((key: any, index: number) => {
-                hair[index] = { color: key, amount: value.hair[key] };
-              });
-
-              const addressUser: any = [];
-              Object.keys(value.addressUser).map((key: any, index: number) => {
-                addressUser[index] = {
-                  name: key,
-                  postalCode: value.addressUser[key],
-                };
-              });
-
-              return (
-                <li key={index} className="mb-2">
-                  <p className="font-medium text-md">
-                    {index + 1}. [{department}]:
-                  </p>
-                  <p className="ml-4">
-                    <span className="font-medium">male:</span> {value.male}
-                  </p>
-                  <p className="ml-4">
-                    <span className="font-medium">female:</span> {value.female}
-                  </p>
-                  <p className="ml-4">
-                    <span className="font-medium">ageRange:</span>{" "}
-                    {value.ageRange}
-                  </p>
-
-                  {hair && (
-                    <div className="ml-4">
-                      <p className="font-medium">hair:</p>
-                      {hair.map((item2: any, index2: number) => (
-                        <p className="ml-4" key={index2}>
-                          {item2.color}: {item2.amount}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-
-                  {addressUser && (
-                    <div className="ml-4">
-                      <p className="font-medium">addressUser:</p>
-                      {addressUser.map((item2: any, index2: number) => (
-                        <p className="ml-4" key={index2}>
-                          {item2.name}: {item2.postalCode}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-        </ul>
-      </div>
+      <pre>{JSON.stringify(dataGroupByDepartment, null, 2)}</pre>
     </div>
   );
 }
