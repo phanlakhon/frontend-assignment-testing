@@ -97,7 +97,19 @@ export function CreateDataFromAPI() {
   return (
     <div className="my-16">
       <p className="text-lg">2. Create data from API (OPTIONAL)</p>
-      <p className="text-red-500 mb-4 text-sm">
+
+      <p className="text-sm">
+        Github link:{" "}
+        <a
+          href="https://github.com/phanlakhon/frontend-assignment-testing"
+          target="_blank"
+          className="text-sky-600 hover:text-sky-400"
+        >
+          https://github.com/phanlakhon/frontend-assignment-testing
+        </a>
+      </p>
+
+      <p className="text-red-500 text-sm mb-4">
         * Log Array ไว้ใน Console แล้วนะคะ inspect เพื่อดูได้เลยค่ะ
       </p>
 
