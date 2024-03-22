@@ -3,21 +3,34 @@ import { mockLists } from "../../mock-data";
 
 export function AutoDeleteTodoList() {
   const [lists, setLists] = useState<any[]>(mockLists);
-  const [timeoutId, setTimeoutId] = useState<any>(null);
+  // const [timeoutId, setTimeoutId] = useState<any>(null);
 
-  const handleReset = () => {
-    if (lists.filter((v) => !v.moved).length < 11) {
-      if (timeoutId) clearTimeout(timeoutId);
+  // const handleReset = () => {
+  //   if (lists.filter((v) => !v.moved).length < 11) {
+  //     if (timeoutId) clearTimeout(timeoutId);
 
-      const newTimeoutId = setTimeout(() => {
-        lists.map((_, index: number) => {
-          lists[index].moved = false;
-        });
+  //     const newTimeoutId = setTimeout(() => {
+  //       lists.map((_, index: number) => {
+  //         lists[index].moved = false;
+  //       });
 
-        setLists([...lists]);
-      }, 5000);
-      setTimeoutId(newTimeoutId);
-    }
+  //       setLists([...lists]);
+  //     }, 5000);
+  //     setTimeoutId(newTimeoutId);
+  //   }
+  // };
+
+  const handleReset = (listProps: any, name: string) => {
+    setTimeout(() => {
+      const newLists: any = listProps;
+
+      newLists.forEach((value: any, index: number) => {
+        if (value.moved && value.name === name) {
+          newLists[index].moved = false;
+        }
+      });
+      setLists([...newLists]);
+    }, 5000);
   };
 
   const handleMove = (name: string) => {
@@ -26,7 +39,7 @@ export function AutoDeleteTodoList() {
 
     newLists[index].moved = true;
     setLists([...lists]);
-    handleReset();
+    handleReset(lists, name);
   };
 
   const handleMoveBack = (name: string, type: string) => {
@@ -35,7 +48,7 @@ export function AutoDeleteTodoList() {
 
     newLists[index].moved = false;
     setLists([...lists]);
-    handleReset();
+    // handleReset();
   };
 
   return (
